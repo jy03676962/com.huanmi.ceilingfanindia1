@@ -1,0 +1,10 @@
+{
+        "name": "project-com-huanmi-ceilingfanindia1",
+        "version": "1.0.27",
+        "scripts":{
+            "start":"node ../../bin/runProject.js"
+        },
+        "dependencies":{
+            
+        }
+    }
