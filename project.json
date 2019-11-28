@@ -1,4 +1,5 @@
-{ 
+{
+        "models":"huanmi.fan.ind1",
         "package_path": "com.huanmi.ceilingfanindia1",
         "min_sdk_api_level":10027,
         "developer_id": "",
