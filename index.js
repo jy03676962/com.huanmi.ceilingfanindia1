@@ -1,23 +1,24 @@
+import App from './Main/index'
+import SceneMain from './Main/SceneMain'
+import { Package,Device, Entrance, PackageEvent,Host } from "miot";
 
-    import React from 'react';
-    import { API_LEVEL, Package, Device, Service, Host } from 'miot';
-    import { PackageEvent, DeviceEvent } from 'miot';
-    import { View, Text } from 'react-native';
+PackageEvent.packageAuthorizationCancel.addListener(()=>{
+    console.log("packageAuthorizationCancel");
+    let licenseKey = "license-"+Device.deviceID;
+    Host.storage.set(licenseKey, false);
+    Package.exit();
+})
 
-    class App extends React.Component {
-        render() {
-            return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'powderblue' }}>
-            <Text>hello, this is a tiny plugin project of MIOT</Text>
-            <Text>API_LEVEL:{API_LEVEL}</Text>
-            <Text>NATIVE_API_LEVEL:{Host.apiLevel}</Text>
-            <Text>{Package.packageName}</Text>
-            <Text>models:{Package.models}</Text>
-            </View>
-            )
-        }
-    }
-    Package.entry(App, () => {
 
-    })
-    
+// console.log('Package:'+Package.models);
+
+switch (Package.entrance) {
+    case Entrance.Scene:
+        Package.entry(SceneMain, _ => {
+        });
+        break;
+    default:
+        Package.entry(App, _ => {
+        });
+        break;
+}

@@ -1,10 +1,12 @@
 {
-        "name": "project-com-huanmi-ceilingfanindia1",
-        "version": "1.0.27",
-        "scripts":{
-            "start":"node ../../bin/runProject.js"
-        },
-        "dependencies":{
-            
-        }
-    }
+  "name": "project-com-huanmi-ceilingfanindia1",
+  "version": "1.0.27",
+  "scripts": {
+    "start": "node ../../bin/runProject.js"
+  },
+  "dependencies": {
+    "react-native-scrollable-tab-view": "^0.10.0",
+    "react-native-swipeout": "^2.3.6",
+    "react-native-overlayer": "^0.1.0"
+  }
+}
