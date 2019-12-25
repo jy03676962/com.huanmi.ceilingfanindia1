@@ -1,4 +1,5 @@
-import React, {Component} from "react";
+import React, {Component} from 'react';
+import {StyleSheet} from 'react-native'
 import {API_LEVEL, Package, Device, Service, Host} from 'miot';
 import {View, Text, default as RRCAlert} from 'react-native';
 import {TitleBarBlack, TitleBarWhite} from 'miot/ui';
@@ -66,20 +67,39 @@ export default class MainPage extends React.Component {
         }
 
         return (
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'powderblue'}}>
-                <Text>hello, this is a tiny plugin project of MIOT</Text>
-                <Text>API_LEVEL:{API_LEVEL}</Text>
-                <Text>NATIVE_API_LEVEL:{Host.apiLevel}</Text>
-                <Text>{Package.packageName}</Text>
-                <Text>models:{Package.models}</Text>
-                <Text>Package.entrance:{Package.entrance}</Text>
-                <Text>state did:{this.state.did}</Text>
-                <Text>state model:{this.state.model}</Text>
-                <Text>state pkgName:{this.state.pkgName}</Text>
-                <Text>state api:{this.state.api}</Text>
-                <Text>state rn_api:{this.state.rn_api}</Text>
-                <Text>welcomeString:{this.state.welcomeString}</Text>
-                <Text>hasError:{this.state.hasError}</Text>
+            <View style={styles.mainView}>
+                <View style={styles.logoView}>
+                    <Text>hello, this is a tiny plugin project of MIOT</Text>
+                    <Text>API_LEVEL:{API_LEVEL}</Text>
+                    <Text>NATIVE_API_LEVEL:{Host.apiLevel}</Text>
+                    <Text>{Package.packageName}</Text>
+                    <Text>models:{Package.models}</Text>
+                    <Text>Package.entrance:{Package.entrance}</Text>
+                    <Text>state did:{this.state.did}</Text>
+                    <Text>state model:{this.state.model}</Text>
+                    <Text>state pkgName:{this.state.pkgName}</Text>
+                    <Text>state api:{this.state.api}</Text>
+                    <Text>state rn_api:{this.state.rn_api}</Text>
+                    <Text>welcomeString:{this.state.welcomeString}</Text>
+                    <Text>hasError:{this.state.hasError}</Text>
+                </View>
+                <View style={styles.selectView}>
+                    <View style={styles.historyData}>
+                        <Text>historyData</Text>
+                    </View>
+                    <View style={styles.fanSwitch}>
+                        <Text>fanSwitch</Text>
+                    </View>
+                    <View style={styles.modeSwitch}>
+                        <Text>modeSwitch</Text>
+                    </View>
+                    <View style={styles.userCustomize}>
+                        <Text>userCustomize</Text>
+                    </View>
+                    <View style={styles.otherSwitch}>
+                        <Text>otherSwitch</Text>
+                    </View>
+                </View>
             </View>
         );
     }
@@ -108,3 +128,20 @@ export default class MainPage extends React.Component {
 
     }
 }
+
+const styles = StyleSheet.create({
+    mainView: {
+        flex:1,
+        backgroundColor:'#87CEEB'
+    },
+    logoView: {
+        backgroundColor: '#FFEFD5'
+    },
+    selectView: {},
+    historyData: {},
+    fanSwitch: {},
+    modeSwitch: {},
+    fanControl: {},
+    userCustomize: {},
+    otherSwitch: {}
+});

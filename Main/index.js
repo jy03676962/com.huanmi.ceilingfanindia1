@@ -8,12 +8,16 @@ import MainPage from './Page/MainPage';
 import BlinkPage from "./Page/BlinkPage";
 
 import {API_LEVEL, Package, Device, Service, Host} from 'miot';
+import TestPage from "./Page/TestPage";
+import ButtonPage from "./Page/ButtonPage";
 
 const RootStack = createStackNavigator(
     {
         MainPage: MainPage,
         SceneMain: SceneMain,
         BlinkApp: BlinkPage,
+        TestPage:TestPage,
+        ButtonPage:ButtonPage,
     },
     {
         initialRouteName: 'MainPage',
