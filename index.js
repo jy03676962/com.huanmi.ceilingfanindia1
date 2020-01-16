@@ -1,5 +1,5 @@
 import App from './Main/index'
-import SceneMain from './Main/SceneMain'
+import SceneMain from './Main/Page/SceneMain'
 import { Package,Device, Entrance, PackageEvent,Host } from "miot";
 
 PackageEvent.packageAuthorizationCancel.addListener(()=>{

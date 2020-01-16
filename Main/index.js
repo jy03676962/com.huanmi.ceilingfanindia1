@@ -3,21 +3,19 @@ import {StyleSheet, Text, View} from "react-native"
 import {createStackNavigator} from 'react-navigation';
 import {TitleBarBlack, TitleBarWhite} from 'miot/ui';
 
-import SceneMain from './SceneMain';
+import SceneMain from './Page/SceneMain';
 import MainPage from './Page/MainPage';
-import BlinkPage from "./Page/BlinkPage";
-
+import TimedTaskPage from "./Page/TimedTaskPage";
+import MHSetting from "./Page/MHSetting";
 import {API_LEVEL, Package, Device, Service, Host} from 'miot';
-import TestPage from "./Page/TestPage";
-import ButtonPage from "./Page/ButtonPage";
+
 
 const RootStack = createStackNavigator(
     {
         MainPage: MainPage,
         SceneMain: SceneMain,
-        BlinkApp: BlinkPage,
-        TestPage:TestPage,
-        ButtonPage:ButtonPage,
+        SettingPage:MHSetting,
+        TimedTaskPage:TimedTaskPage,
     },
     {
         initialRouteName: 'MainPage',

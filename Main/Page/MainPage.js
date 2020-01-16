@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native'
+import {StyleSheet, ScrollView, Button, Alert, Image,Animated,Easing} from 'react-native'
 import {API_LEVEL, Package, Device, Service, Host} from 'miot';
 import {View, Text, default as RRCAlert} from 'react-native';
 import {TitleBarBlack, TitleBarWhite} from 'miot/ui';
 import {LocalizedStrings} from '../Config/MHLocalizableString'
+import FanLogoView from "../View/FanLogoView";
 
 let projectModel = require('../../project');
+let fanStatus = 0;
 
 export default class MainPage extends React.Component {
 
@@ -20,7 +22,7 @@ export default class MainPage extends React.Component {
                             Package.exit()
                         }}
                         onPressRight={() => {
-                            navigation.navigate('Setting', {'title': LocalizedStrings.setting});
+                            navigation.navigate('SettingPage', {'title': LocalizedStrings.setting});
                         }}
                         onPressTitle={() => {
                             RRCAlert.alert('plugin version_code:' + projectModel.version_code, '',
@@ -44,6 +46,7 @@ export default class MainPage extends React.Component {
             welcomeString: "Hello this is a HOLOMI india demo",
             hasError: false,
         };
+        this.spinValue = new Animated.Value(0)
     }
 
     componentDidCatch(error, errorInfo) {
@@ -59,15 +62,39 @@ export default class MainPage extends React.Component {
 
     }
 
+    _onPressButton() {
+        Alert.alert('Start fan!')
+    }
 
     render() {
+        // 利用 interpolate 方法将数值 0~1 映射到了 0deg~360deg
+        const spin = this.spinValue.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['0deg', '360deg']
+        })
+
         if (this.state.hasError) {
             // You can render any custom fallback UI
             return <h1>Something went wrong.</h1>;
         }
 
         return (
-            <View style={styles.mainView}>
+            <ScrollView style={styles.mainView}>
+                <FanLogoView></FanLogoView>
+                <Button
+                    onPress={this._onPressButton}
+                    title="Press Me"
+                />
+                <View style={styles.logoView}>
+                    <Animated.Image
+                        style={{
+                            width: 227,
+                            height: 200,
+                            transform: [{rotate: spin}] }}
+                        source={require('../../Resources/fan.png')}
+                    />
+                </View>
+
                 <View style={styles.logoView}>
                     <Text>hello, this is a tiny plugin project of MIOT</Text>
                     <Text>API_LEVEL:{API_LEVEL}</Text>
@@ -100,12 +127,23 @@ export default class MainPage extends React.Component {
                         <Text>otherSwitch</Text>
                     </View>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 
-    componentDidMount() {
-
+    componentDidMount () {
+        this.spin()
+    }
+    spin () {
+        this.spinValue.setValue(0)
+        Animated.timing(
+            this.spinValue,
+            {
+                toValue: 1,
+                duration: 2000,
+                easing: Easing.linear
+            }
+        ).start(() => this.spin()) // 一轮动画完成后的回调，这里传spin可以形成无限动画
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -128,20 +166,51 @@ export default class MainPage extends React.Component {
 
     }
 }
+let width = 240;
+let height = 160;
 
 const styles = StyleSheet.create({
+    imagesStyle: {
+        width: 300,
+        height: 300,
+    },
     mainView: {
-        flex:1,
-        backgroundColor:'#87CEEB'
+        backgroundColor: '#87CEEB',
     },
     logoView: {
-        backgroundColor: '#FFEFD5'
+        alignItems: 'center',
     },
-    selectView: {},
-    historyData: {},
-    fanSwitch: {},
-    modeSwitch: {},
-    fanControl: {},
-    userCustomize: {},
-    otherSwitch: {}
+    selectView: {
+        alignItems: 'center',
+    },
+    historyData: {
+        backgroundColor: '#D8BFD8',
+        height: height,
+        width: width,
+    },
+    fanSwitch: {
+        backgroundColor: '#E6E6FA',
+        height: height,
+        width: width,
+    },
+    modeSwitch: {
+        backgroundColor: '#708090',
+        height: height,
+        width: width,
+    },
+    fanControl: {
+        backgroundColor: '#FFEFD5',
+        height: height,
+        width: width,
+    },
+    userCustomize: {
+        backgroundColor: '#D8BFD8',
+        height: height,
+        width: width,
+    },
+    otherSwitch: {
+        backgroundColor: '#FFEFD5',
+        height: height,
+        width: width,
+    }
 });
