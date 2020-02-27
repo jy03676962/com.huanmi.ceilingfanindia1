@@ -10,7 +10,7 @@ PackageEvent.packageAuthorizationCancel.addListener(()=>{
 })
 
 
-// console.log('Package:'+Package.models);
+console.log('Package.entrance:'+Package.entrance);
 
 switch (Package.entrance) {
     case Entrance.Scene:

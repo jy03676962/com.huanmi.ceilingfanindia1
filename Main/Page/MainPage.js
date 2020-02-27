@@ -48,6 +48,10 @@ export default class MainPage extends React.Component {
         };
         this.spinValue = new Animated.Value(0)
     }
+    packageWillLoad()
+    {
+        
+    }
 
     componentDidCatch(error, errorInfo) {
         // Example "componentStack":

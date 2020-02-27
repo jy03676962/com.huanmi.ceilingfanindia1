@@ -1,6 +1,6 @@
 'use strict';
 
-import { Entrance, Package } from "miot";
+import { Entrance, Package, Host } from "miot";
 import { strings, Styles } from 'miot/resources';
 import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
 import { firstAllOptions, secondAllOptions } from "miot/ui/CommonSetting/CommonSetting";
@@ -11,6 +11,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 const { first_options, second_options } = SETTING_KEYS;
+let lastClickTime = 0;
 
 export default class MHSetting extends React.Component {
 
@@ -42,6 +43,29 @@ export default class MHSetting extends React.Component {
             showDot: [],
         }
     }
+
+    onOpenTimerSettingPage = () => {
+        if (new Date().getTime()-lastClickTime>=1000) {
+            lastClickTime = new Date().getTime();
+                Host.ui.openTimerSettingPageWithVariousTypeParams({
+                    onMethod: "set_power",
+                    onParam: "on",
+                    offMethod: "set_power",
+                    offParam: "off",
+                    //displayName: LocalizedStrings.setting_left_timer,
+                    identify: 'power',
+                    timerTitle: "设置"
+                });
+        }
+
+        /*if (this.state.isPower) {
+            Host.ui.openTimerSettingPageWithVariousTypeParams("set_power", "on", "set_power", "off");
+            // Host.ui.openTimerSettingPageWithOptions({onMethod:"set_power", onParam: "on", offMethod: "set_power", offParam: "off", displayName:"powerTimer",identify:"powerTimer"})
+        } else {
+            Host.ui.openTimerSettingPageWithVariousTypeParams("set_usb_on", "", "set_usb_off", "");
+        }*/
+
+    };
 
     render() {
         // 显示部分一级菜单项
@@ -88,8 +112,7 @@ export default class MHSetting extends React.Component {
                         </View>
                         <Separator style={{ marginLeft: Styles.common.padding }} />
                         <ListItem
-                            title='这是'
-                            showDot={true}
+                            title='定时开关机'
                             onPress={_ => console.log(0)}
                         />
                         <ListItemWithSwitch
